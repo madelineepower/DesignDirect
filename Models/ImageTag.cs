@@ -16,6 +16,10 @@ namespace DesignDirect.Models
         [Required]
         public int TagId { get; set; }
 
+
+        [Required]
+        public virtual ApplicationUser User { get; set; }
+
         public virtual Image Image { get; set; }
 
         public virtual Tag Tag { get; set; }

@@ -9,45 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Source)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Room)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Style)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Source)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Room.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Style.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ImageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ImageId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var item in Model) {
+        <div class="col-md-2">
+            <a asp-action="AddToIdeaboard" asp-route-id="@item.ImageId">
+            <img src="@Html.DisplayFor(modelItem => item.Source)" style="width:100%">
+            </a>
+        </div>
+    }
+</div>
+        

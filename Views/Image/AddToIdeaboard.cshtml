@@ -1,0 +1,39 @@
+@model DesignDirect.Models.IdeaboardViewModels.AddImageViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Add to Ideaboard</h2>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Html.DisplayFor(model => model.Image.Source)">
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownList(
+                    "Ideaboard.IdeaboardId",
+                    @Model.IdeaboardId,
+                    new
+                    {
+                        @name = "Ideaboard.IdeaboardId"
+                    }
+                )
+            </div>
+        </div> 
+        <div class="form-group">
+            <div class="col-md-10">
+                <label asp-for="Tags" class="control-label"></label>
+                @Html.ListBoxFor(m => m.SelectedTags, 
+                                 Model.Tags, 
+                                 new { @class="form-control" })
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            </div>   
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Images</a>
+</div>

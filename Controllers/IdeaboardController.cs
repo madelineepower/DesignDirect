@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DesignDirect.Data;
 using DesignDirect.Models;
+using Microsoft.AspNetCore.Identity;
+using DesignDirect.Models.IdeaboardViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DesignDirect.Controllers
 {
@@ -14,10 +17,15 @@ namespace DesignDirect.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public IdeaboardController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public IdeaboardController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context; 
+            _userManager = userManager;   
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Ideaboard
         public async Task<IActionResult> Index()
@@ -54,8 +62,10 @@ namespace DesignDirect.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaboardId,Title")] Ideaboard ideaboard)
+        public async Task<IActionResult> Create(Ideaboard ideaboard)
         {
+            ModelState.Remove("User");
+            ideaboard.User = await GetCurrentUserAsync();
             if (ModelState.IsValid)
             {
                 _context.Add(ideaboard);
@@ -132,6 +142,25 @@ namespace DesignDirect.Controllers
             }
 
             return View(ideaboard);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddImage(AddImageViewModel model)
+        {
+            ModelState.Remove("User");
+            model.Ideaboard.User = await GetCurrentUserAsync();
+            if (ModelState.IsValid)
+            {
+                var ideaboardImage = new IdeaboardImage();
+                ideaboardImage.ImageId = model.Image.ImageId;
+                ideaboardImage.IdeaboardId = model.Ideaboard.IdeaboardId;
+                _context.Add(ideaboardImage);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         // POST: Ideaboard/Delete/5

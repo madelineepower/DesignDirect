@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DesignDirect.Data;
 using DesignDirect.Models;
+using DesignDirect.Models.IdeaboardViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace DesignDirect.Controllers
 {
@@ -14,11 +16,14 @@ namespace DesignDirect.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ImageController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ImageController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context; 
+            _userManager = userManager;   
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         // GET: Image
         public async Task<IActionResult> Index()
         {
@@ -27,23 +32,23 @@ namespace DesignDirect.Controllers
         }
 
         // GET: Image/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> AddToIdeaboard(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var image = await _context.Image
+            var user = await GetCurrentUserAsync();
+     
+            var model = new AddImageViewModel(_context, user);
+            
+            model.Image = await _context.Image
                 .Include(i => i.Room)
                 .Include(i => i.Style)
                 .SingleOrDefaultAsync(m => m.ImageId == id);
-            if (image == null)
-            {
-                return NotFound();
-            }
-
-            return View(image);
+            
+            return View(model);
         }
 
         // GET: Image/Create
