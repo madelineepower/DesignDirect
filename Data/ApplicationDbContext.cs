@@ -22,5 +22,27 @@ namespace DesignDirect.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<DesignDirect.Models.Ideaboard> Ideaboard { get; set; }
+
+        public DbSet<DesignDirect.Models.Contractor> Contractor { get; set; }
+
+        public DbSet<DesignDirect.Models.Image> Image { get; set; }
+
+        public DbSet<DesignDirect.Models.Room> Room { get; set; }
+
+        public DbSet<DesignDirect.Models.ContractorService> ContractorService { get; set; }
+
+        public DbSet<DesignDirect.Models.ContractorTag> ContractorTag { get; set; }
+
+        public DbSet<DesignDirect.Models.IdeaboardImage> IdeaboardImage { get; set; }
+
+        public DbSet<DesignDirect.Models.ImageTag> ImageTag { get; set; }
+
+        public DbSet<DesignDirect.Models.Service> Service { get; set; }
+
+        public DbSet<DesignDirect.Models.Style> Style { get; set; }
+
+        public DbSet<DesignDirect.Models.Tag> Tag { get; set; }
     }
 }
