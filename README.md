@@ -1,1 +1,3 @@
 # DesignDirect
+
+This application is a resource for users to find inspiration for home design, and find professinals to make their vision come to life. Users can create ideaboards based on any category they want (Kitchen, Living Room, Patio). They can then save photo inspiration to their ideaboards.  The users can then find professionals in their area (ex. Interior Designers, Architects, Painters) who can help them create their vision for their home. Users can write reviews for the professinals. As a user who would like to provide services and be listed as a professional, this user can create a profile describing what services they provide and their location. 
