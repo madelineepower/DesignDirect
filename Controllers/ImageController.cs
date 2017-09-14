@@ -51,6 +51,44 @@ namespace DesignDirect.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Save(AddImageViewModel model)
+        {
+            ModelState.Remove("User");
+            model.User = await GetCurrentUserAsync();
+            var ideaboardImage = new IdeaboardImage();
+            ideaboardImage.IdeaboardId = model.chosenIdeaboard;
+            ideaboardImage.ImageId = model.Image.ImageId;
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(ideaboardImage);
+                await _context.SaveChangesAsync();
+
+                var imageTag = new ImageTag();
+                imageTag.ImageId = model.Image.ImageId;
+                imageTag.User = await GetCurrentUserAsync();
+                
+                if (model.SelectedTags.Count > 0)
+                    {
+                        foreach (int tagId in model.SelectedTags)
+                        {
+                            ImageTag imageTags = new ImageTag(){
+                                ImageId = model.Image.ImageId,
+                                TagId = tagId,
+                                User = await GetCurrentUserAsync()
+                            };
+                            await _context.AddAsync(imageTags);
+                        }
+                    }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+
         // GET: Image/Create
         public IActionResult Create()
         {

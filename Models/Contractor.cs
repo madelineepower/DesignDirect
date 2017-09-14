@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,8 @@ namespace DesignDirect.Models
         public string PhoneNumber {get; set;}
 
         public string Website {get; set;}
+
+        public ICollection<ContractorService> Services { get; set; }
 
     }
 }

@@ -17,8 +17,11 @@ namespace DesignDirect.Models.IdeaboardViewModels
         [Display(Name="Image Tags")]
         public MultiSelectList Tags { get; private set; }
         public List<int> SelectedTags { get; set; }
-        public Ideaboard Ideaboard {get; set;}
+        public int chosenIdeaboard {get; set;}
 
+        public ApplicationUser User {get; set;}
+
+        public AddImageViewModel() {}
         public AddImageViewModel(ApplicationDbContext ctx, ApplicationUser user)
         {
             this.IdeaboardId = ctx.Ideaboard.Where(o => o.User.Id == user.Id)
