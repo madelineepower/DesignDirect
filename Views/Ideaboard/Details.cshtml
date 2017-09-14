@@ -1,4 +1,4 @@
-@model DesignDirect.Models.Ideaboard
+@model DesignDirect.Models.IdeaboardViewModels.IdeaboardDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -7,18 +7,14 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Ideaboard</h4>
+    <h4>@Html.DisplayFor(model => model.Ideaboard.Title)</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
+
+    @foreach (var image in @Model.Images)
+    {
+        <img src="@Html.DisplayFor(modelItem => image.Source)">
+    }
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdeaboardId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -17,6 +17,6 @@ namespace DesignDirect.Models
         [Required]
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<IdeaboardImage> Images { get; set; }
+        public virtual ICollection<IdeaboardImage> Images { get; set; }
     }
 }
