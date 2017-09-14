@@ -47,8 +47,11 @@ namespace DesignDirect.Controllers
             {
                 return NotFound();
             }
+            var user = await GetCurrentUserAsync();
+            var model = new IdeaboardDetailsViewModel(_context, user, ideaboard.IdeaboardId);
+            model.Ideaboard = ideaboard;
 
-            return View(ideaboard);
+            return View(model);
         }
 
         // GET: Ideaboard/Create
