@@ -144,25 +144,6 @@ namespace DesignDirect.Controllers
             return View(ideaboard);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddImage(AddImageViewModel model)
-        {
-            ModelState.Remove("User");
-            model.Ideaboard.User = await GetCurrentUserAsync();
-            if (ModelState.IsValid)
-            {
-                var ideaboardImage = new IdeaboardImage();
-                ideaboardImage.ImageId = model.Image.ImageId;
-                ideaboardImage.IdeaboardId = model.Ideaboard.IdeaboardId;
-                _context.Add(ideaboardImage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
         // POST: Ideaboard/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

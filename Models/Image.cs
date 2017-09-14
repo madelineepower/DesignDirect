@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,5 +24,8 @@ namespace DesignDirect.Models
         public int StyleId {get; set;}
 
         public Style Style {get; set;}
+
+        public ICollection<IdeaboardImage> Ideaboards { get; set; }
+        public ICollection<ImageTag> Tags { get; set; }
     }
 }
