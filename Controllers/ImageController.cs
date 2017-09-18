@@ -27,8 +27,10 @@ namespace DesignDirect.Controllers
         // GET: Image
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Image.Include(i => i.Room).Include(i => i.Style);
-            return View(await applicationDbContext.ToListAsync());
+            var allImages = await _context.Image.Include(i => i.Room).Include(i => i.Style).ToListAsync();
+            var model = new FilterResultsViewModel(_context);
+            model.Images = allImages;
+            return View(model);
         }
 
         // GET: Image/Details/5
@@ -88,6 +90,22 @@ namespace DesignDirect.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Filter(FilterResultsViewModel model)
+        {
+            List<int> roomIds = model.FilterRoomIds;
+            List<int> styleIds = model.FilterStyleIds;
+
+            if (ModelState.IsValid)
+            {
+                //iterate over roomsIds and pull out images that match
+                //iterate over stylesIds and pull out images that match
+                //combine the list and select distinct so there are no repeats
+                //bind new list of images to model
+            }
+            return View(model);
+        } 
 
         // GET: Image/Create
         public IActionResult Create()
