@@ -1,53 +1,42 @@
-@model IEnumerable<DesignDirect.Models.Contractor>
+@model DesignDirect.Models.ContractorViewModels.FindContractorsViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Find Contractors</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.State)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Website)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Website)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ContractorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ContractorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ContractorId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="Filter">
+            <div class="form-group">
+                <label asp-for="Services" class="control-label"></label>
+                @Html.ListBoxFor(m => m.FilterServiceIds, 
+                                 Model.Services, 
+                                 new { @class="form-control" })
+            </div>
+            <input type="submit" value="Filter" class="btn btn-default" />
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in @Model.Contractors) {
+                <div class="col-md-4">
+                    <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                    <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.Website)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.PhoneNumber)</h5>
+                    <h4>Services</h4>
+                    @foreach (var thing in item.Services)
+                    {
+                        <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
