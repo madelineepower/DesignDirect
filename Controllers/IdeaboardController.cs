@@ -30,7 +30,21 @@ namespace DesignDirect.Controllers
         // GET: Ideaboard
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ideaboard.ToListAsync());
+            ViewIdeaboardsViewModel model = new ViewIdeaboardsViewModel();
+            var user = await GetCurrentUserAsync();
+            model.Ideaboards = await _context.Ideaboard.Where(i => i.User.Id == user.Id).ToListAsync();
+            var userTags = await _context.ImageTag.Where(i => i.User.Id == user.Id).Select(t => t.TagId).ToListAsync();
+            var allContractorTags = await _context.ContractorTag.ToListAsync();
+            var contractorTags = (from t in allContractorTags
+                                from u in userTags
+                                where t.TagId == u
+                                select t.ContractorId).ToList();
+            var allContractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).ToListAsync();
+            model.MatchingContractors = (from c in allContractors
+                                    from t in contractorTags
+                                    where c.ContractorId == t
+                                    select c).ToList(); 
+            return View(model);
         }
 
         // GET: Ideaboard/Details/5

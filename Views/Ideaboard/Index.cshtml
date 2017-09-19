@@ -1,4 +1,4 @@
-@model IEnumerable<DesignDirect.Models.Ideaboard>
+@model DesignDirect.Models.IdeaboardViewModels.ViewIdeaboardsViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,27 +9,38 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdeaboardId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdeaboardId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdeaboardId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in @Model.Ideaboards)
+            {
+                <div class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.Title) <br>
+                    <a asp-action="Details" asp-route-id="@item.IdeaboardId">Details</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-3">
+        @foreach (var item in @Model.MatchingContractors)
+        {
+            <div class="col-md-1">
+                <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                    <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.Website)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.PhoneNumber)</h5>
+                    <h4>Services</h4>
+                    @foreach (var thing in item.Services)
+                    {
+                        <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
+                    }
+            </div>
+
+        }
+    </div>
+
+</div>
+
+
