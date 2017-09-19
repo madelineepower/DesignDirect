@@ -96,16 +96,44 @@ namespace DesignDirect.Controllers
         {
             List<int> roomIds = model.FilterRoomIds;
             List<int> styleIds = model.FilterStyleIds;
+            var allImages = await _context.Image.ToListAsync();
+            FilterResultsViewModel newModel = new FilterResultsViewModel(_context);
 
-            if (ModelState.IsValid)
+            if (roomIds == null && styleIds == null)
             {
-                //iterate over roomsIds and pull out images that match
-                //iterate over stylesIds and pull out images that match
-                //combine the list and select distinct so there are no repeats
-                //bind new list of images to model
+                newModel.Images = allImages;
+            }   
+
+            if (styleIds != null) {
+            var match = (from i in allImages
+                        from s in styleIds
+                        where i.StyleId == s
+                        select i).ToList();
+                newModel.Images = match;
             }
-            return View(model);
+
+            if (roomIds != null)
+            {
+                var match = (from i in allImages
+                        from r in roomIds
+                        where i.RoomId == r
+                        select i).ToList();
+                newModel.Images = match;
+            }
+
+            if (styleIds != null && roomIds != null)
+            {
+                var match = (from i in allImages
+                        from r in roomIds
+                        from s in styleIds
+                        where i.StyleId == s
+                        where i.RoomId == r
+                        select i).ToList();
+                newModel.Images = match;
+            }
+            return View(newModel);
         } 
+
 
         // GET: Image/Create
         public IActionResult Create()
