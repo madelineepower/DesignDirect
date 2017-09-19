@@ -28,9 +28,35 @@ namespace DesignDirect.Controllers
         // GET: Contractor
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Contractor.ToListAsync());
+            var contractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).ToListAsync();
+            var model = new FindContractorsViewModel(_context);
+            model.CurrentUser = await GetCurrentUserAsync();
+            model.Contractors = contractors;
+            return View(model);
         }
 
+        public async Task<IActionResult> Filter(FindContractorsViewModel model)
+        {
+            List<int> serviceIds = model.FilterServiceIds;
+            if (serviceIds == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var allContractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).ToListAsync();
+            var allContractorServices = await _context.ContractorService.ToListAsync();
+            var contractorServices = (from c in allContractorServices
+                                      from s in serviceIds
+                                      where c.ServiceId == s
+                                      select c).ToList();
+            var filteredContractors = (from c in allContractors
+                                      from s in contractorServices
+                                      where c.ContractorId == s.ContractorId
+                                      select c).ToList();
+            FindContractorsViewModel newModel = new FindContractorsViewModel(_context);
+            newModel.Contractors = filteredContractors;
+
+            return View(newModel);
+        }
         // GET: Contractor/Details/5
         public async Task<IActionResult> Details(int? id)
         {

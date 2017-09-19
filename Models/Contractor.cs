@@ -26,7 +26,7 @@ namespace DesignDirect.Models
 
         public string Website {get; set;}
 
-        public ICollection<ContractorService> Services { get; set; }
+        public virtual ICollection<ContractorService> Services { get; set; }
 
     }
 }

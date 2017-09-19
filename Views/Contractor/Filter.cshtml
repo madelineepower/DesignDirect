@@ -1,0 +1,42 @@
+@model DesignDirect.Models.ContractorViewModels.FindContractorsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Find Contractors</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="Filter">
+            <div class="form-group">
+                <label asp-for="Services" class="control-label"></label>
+                @Html.ListBoxFor(m => m.FilterServiceIds, 
+                                 Model.Services, 
+                                 new { @class="form-control" })
+            </div>
+            <input type="submit" value="Filter" class="btn btn-default" />
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in @Model.Contractors) {
+                <div class="col-md-4">
+                    <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                    <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.Website)</h5>
+                    <h5>@Html.DisplayFor(modelItem => item.PhoneNumber)</h5>
+                    <h4>Services</h4>
+                    @foreach (var thing in item.Services)
+                    {
+                        <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
