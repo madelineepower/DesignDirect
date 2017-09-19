@@ -163,8 +163,51 @@ namespace DesignDirect.Data
                         Name = "Ecletic"
                     }
                 );
-                await context.SaveChangesAsync();
 
+                await context.SaveChangesAsync();
+                
+                context.Service.AddRange(
+                    new Service {
+                        Name = "General Contractor"
+                    },
+                     new Service {
+                        Name = "Interior Design"
+                    },
+                     new Service {
+                        Name = "Architect"
+                    },
+                     new Service {
+                        Name = "Landscape Architect"
+                    },
+                     new Service {
+                        Name = "Cabinets & Cabinetry"
+                    },
+                     new Service {
+                        Name = "Painter"
+                    },
+                     new Service {
+                        Name = "Electrician"
+                    },
+                     new Service {
+                        Name = "Lighting"
+                    },
+                    new Service {
+                        Name = "Deck & Patio"
+                    },
+                    new Service {
+                        Name = "Roofing & Gutters"
+                    },
+                    new Service {
+                        Name = "Movers"
+                    },
+                    new Service {
+                        Name = "Pest Control"
+                    },
+                    new Service {
+                        Name = "Kitchen & Bath Design"
+                    }
+                );
+                await context.SaveChangesAsync();
                 context.Image.AddRange(
                     new Image {
                         Description = "",

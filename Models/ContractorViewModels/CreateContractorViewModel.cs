@@ -23,6 +23,7 @@ namespace DesignDirect.Models.ContractorViewModels
         public MultiSelectList Services { get; private set; }
         public List<int> SelectedServices { get; set; }
 
+        public CreateContractorViewModel() {}
         public CreateContractorViewModel(ApplicationDbContext ctx)
         {
             List<Service> allServices = ctx.Service.OrderBy(s => s.Name).ToList();
