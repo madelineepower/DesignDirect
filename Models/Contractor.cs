@@ -21,6 +21,7 @@ namespace DesignDirect.Models
         public string State {get; set;}
 
         [Required]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber {get; set;}
 
         public string Website {get; set;}

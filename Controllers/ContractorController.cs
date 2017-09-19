@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DesignDirect.Data;
 using DesignDirect.Models;
+using DesignDirect.Models.ContractorViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace DesignDirect.Controllers
 {
@@ -14,10 +16,14 @@ namespace DesignDirect.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ContractorController(ApplicationDbContext context)
+         private readonly UserManager<ApplicationUser> _userManager;
+        public ContractorController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context; 
+            _userManager = userManager;   
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Contractor
         public async Task<IActionResult> Index()
@@ -44,9 +50,12 @@ namespace DesignDirect.Controllers
         }
 
         // GET: Contractor/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            CreateContractorViewModel model = new CreateContractorViewModel(_context);
+            var user = await GetCurrentUserAsync();
+            model.User = user;
+            return View(model);
         }
 
         // POST: Contractor/Create

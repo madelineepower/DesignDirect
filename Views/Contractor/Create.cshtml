@@ -1,44 +1,80 @@
-@model DesignDirect.Models.Contractor
+@model DesignDirect.Models.ContractorViewModels.CreateContractorViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Create a Contractor Profile</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
         <h4>Contractor</h4>
         <hr />
+        <div class="form-group">
+            <label asp-for="User.FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+               @Html.DisplayFor(model => model.User.FirstName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="User.LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+               @Html.DisplayFor(model => model.User.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="User.ZipCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+               @Html.DisplayFor(model => model.User.ZipCode)
+            </div>
+        </div>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="City" class="col-md-2 control-label"></label>
+            <label asp-for="Contractor.City" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <input asp-for="Contractor.City" class="form-control" />
+                <span asp-validation-for="Contractor.City" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="State" class="col-md-2 control-label"></label>
+            <label asp-for="Contractor.State" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+                <input asp-for="Contractor.State" class="form-control" />
+                <span asp-validation-for="Contractor.State" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+            <label asp-for="Contractor.PhoneNumber" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <input asp-for="Contractor.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Contractor.PhoneNumber" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Website" class="col-md-2 control-label"></label>
+            <label asp-for="Contractor.Website" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Website" class="form-control" />
-                <span asp-validation-for="Website" class="text-danger"></span>
+                <input asp-for="Contractor.Website" class="form-control" />
+                <span asp-validation-for="Contractor.Website" class="text-danger"></span>
             </div>
         </div>
+        <div class="form-group">
+                <label asp-for="Tags" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    @Html.ListBoxFor(m => m.SelectedTags, 
+                                    Model.Tags, 
+                                    new { @class="form-control" })
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+        </div> 
+        <div class="form-group">
+                <label asp-for="Services" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.ListBoxFor(m => m.SelectedServices, 
+                                 Model.Services, 
+                                 new { @class="form-control" })
+                <span asp-validation-for="Services" class="text-danger"></span>
+            </div>
+        </div> 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
