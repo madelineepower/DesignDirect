@@ -63,15 +63,44 @@ namespace DesignDirect.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ContractorId,City,State,PhoneNumber,Website")] Contractor contractor)
+        public async Task<IActionResult> Create(CreateContractorViewModel model)
         {
+            ModelState.Remove("Contractor.User");
+            
             if (ModelState.IsValid)
             {
-                _context.Add(contractor);
+                var user = await GetCurrentUserAsync();
+                model.Contractor.User = user;
+                _context.Add(model.Contractor);
+                await _context.SaveChangesAsync();
+
+                if (model.SelectedTags.Count > 0)
+                    {
+                        foreach (int tagId in model.SelectedTags)
+                        {
+                            ContractorTag contractorTags = new ContractorTag(){
+                                TagId = tagId,
+                                ContractorId = model.Contractor.ContractorId 
+                            };
+                            await _context.AddAsync(contractorTags);
+                        }
+                    }
+                await _context.SaveChangesAsync();
+                if (model.SelectedServices.Count > 0)
+                    {
+                        foreach (int serviceId in model.SelectedServices)
+                        {
+                            ContractorService contractorServices = new ContractorService(){
+                                ServiceId = serviceId,
+                                ContractorId = model.Contractor.ContractorId 
+                            };
+                            await _context.AddAsync(contractorServices);
+                        }
+                    }
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(contractor);
+            return View(model);
         }
 
         // GET: Contractor/Edit/5
