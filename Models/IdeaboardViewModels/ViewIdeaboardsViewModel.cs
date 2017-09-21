@@ -13,7 +13,9 @@ namespace DesignDirect.Models.IdeaboardViewModels
     {
        public List<Ideaboard> Ideaboards {get; set;}
 
-       public List<Contractor> MatchingContractors {get; set;}  
+       public List<Contractor> MatchingContractors {get; set;}
+
+       public List<Service> Services {get; set;}  
 
     }
 }

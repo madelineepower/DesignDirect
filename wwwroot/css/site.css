@@ -1,6 +1,7 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 20px;
+    background-color: #f8f8f8;
 }
 
 /* Wrapping element */
@@ -47,4 +48,178 @@ textarea {
     .carousel-caption {
         display: none;
     }
+}
+
+.navbar-default {
+    background-color: white;
+}
+.navbar-default .navbar-nav > li > a  {
+    color: black;
+    font-size: 18px;
+}  
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #a264a2;
+}
+
+.ideaboard {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    background-color: white;
+    margin: 2%;
+    height: 200px;
+}
+.content-box {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    background-color: white;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.gutter {
+    width: 3%;
+}
+.logo {
+    height: 85px;
+    width: auto;
+    padding-top: 5px;
+}
+
+.large-box {
+    width: 71%;
+}
+
+.navbar-nav {
+    padding-top: 1%;
+    padding-bottom: 1%; 
+}
+
+.body-content-heading {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.body-content-heading > i {
+    vertical-align: bottom;
+    padding-right: 10px;
+}
+
+select[multiple] {
+    height: 150px;
+}
+
+.purpleBtn {
+    background-color: #a264a2;
+    color: white;
+    border-color: #a264a2;
+}
+
+.purpleBtn:hover {
+    background-color: rgba(63.5%, 39.2%, 63.5%, 0.843); 
+    border-color: #a264a2;
+    color: white;
+}
+
+.purpleBtn:active {
+    background-color: #a264a2;
+    color: white;
+    border-color: #a264a2;
+}
+
+.blueBtn {
+    background-color: #55a4a5; 
+    border-color: #55a4a5;
+    color: white;
+    margin-top: 4%;
+}
+.blueBtn:hover {
+    background-color: rgba(33.3%, 64.3%, 64.7%, 0.8); 
+    border-color: #55a4a5;
+    color: white;
+}
+.blueBtn:active {
+    background-color: #55a4a5; 
+    border-color: #55a4a5;
+    color: white;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons.purple { color: #a264a2; }
+
+.img-container {
+    position: relative;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.img-container:hover .image {
+  opacity: 0.3;
+}
+
+.img-container:hover .middle {
+  opacity: 1;
+}
+
+.center {
+    text-align: center;
+}
+
+.contractor-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.blueBtn > i {
+    vertical-align: bottom;
+}
+
+.right {
+    text-align: right;
+}
+
+.phone-number {
+    color: #a264a2;
+    margin-top: 7%;
+    margin-bottom: 0;
+}
+
+.phone-number > i {
+    vertical-align: bottom;
+}
+
+.contact-row-contractor {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.showing > i {
+    vertical-align: bottom;
+}
+
+.profile-pic {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

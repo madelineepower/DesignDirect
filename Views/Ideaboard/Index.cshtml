@@ -4,28 +4,33 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="body-content-heading"><i class="material-icons purple md-36">dashboard</i>My Ideaboards</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
 </p>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8 content-box large-box">
         <div class="row">
+            <div class="col-md-3 ideaboard">
+                <a asp-action="Create">Create New</a>
+            </div>
             @foreach (var item in @Model.Ideaboards)
             {
-                <div class="col-md-4">
+                <div class="col-md-3 ideaboard">
                     @Html.DisplayFor(modelItem => item.Title) <br>
                     <a asp-action="Details" asp-route-id="@item.IdeaboardId">Details</a>
                 </div>
             }
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1 gutter"></div>
+    <div class="col-md-3 content-box">
+        <h4>BRING YOUR IDEAS TO LIFE</h4>
+        <div class="row">
         @foreach (var item in @Model.MatchingContractors)
         {
-            <div class="col-md-1">
+            <div class="container" >
                 <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
                     <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
                     <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
@@ -36,9 +41,11 @@
                     {
                         <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
                     }
+                    <a asp-controller="Contractor" asp-action="Details" asp-route-id="@item.ContractorId">Details</a>
             </div>
 
         }
+        </div>
     </div>
 
 </div>

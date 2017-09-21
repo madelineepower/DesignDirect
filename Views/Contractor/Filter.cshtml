@@ -4,13 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Find Contractors</h2>
+<h2 class="body-content-heading"><i class="material-icons purple md-36">build</i>Find Contractors</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 content-box">
         <form asp-action="Filter">
             <div class="form-group">
                 <label asp-for="Services" class="control-label"></label>
@@ -18,23 +15,43 @@
                                  Model.Services, 
                                  new { @class="form-control" })
             </div>
-            <input type="submit" value="Filter" class="btn btn-default" />
+            <input type="submit" value="Filter" class="btn btn-default purpleBtn btn-lg" />
         </form>
+        <div>
+            <a class="btn btn-default blueBtn" asp-action="Create">Create a Contractor Profile</a>
+        </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-1 gutter"></div>
+    <div class="col-md-8 content-box large-box">
+        <div class="center"><h4 class="showing">Showing Contractors in your area: <i class="material-icons purple">location_on</i> @Html.DisplayFor(model => model.CurrentUser.ZipCode)</h4></div>
+        <hr>
         <div class="row">
             @foreach (var item in @Model.Contractors) {
-                <div class="col-md-4">
-                    <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
-                    <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.Website)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.PhoneNumber)</h5>
+                <div class="col-md-5 contractor-card">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="profile-pic" src="~/images/blank-profile.png">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                            <p>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</p>
+                            <p>@Html.DisplayFor(modelItem => item.User.ZipCode)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-12">"This is a decscription of the business and everything that we do and blah, blah, blah."</p>
+                    </div>
                     <h4>Services</h4>
                     @foreach (var thing in item.Services)
                     {
-                        <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
+                        <span>@Html.DisplayFor(modelItem => thing.Service.Name) |</span>
                     }
+                    <div class="row contact-row-contractor">
+                        <div class="col-md-6"><p class="phone-number"><i class="material-icons purple">phone</i> @Html.DisplayFor(modelItem => item.PhoneNumber)</p></div>
+                        <div class="col-md-6 right">
+                            <a class="btn btn-default blueBtn" asp-action="Details" asp-route-id="@item.ContractorId"><i class="material-icons">perm_identity</i> View Profile</a>
+                        </div>
+                    </div>
                 </div>
             }
         </div>

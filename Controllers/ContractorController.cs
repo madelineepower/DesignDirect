@@ -28,9 +28,10 @@ namespace DesignDirect.Controllers
         // GET: Contractor
         public async Task<IActionResult> Index()
         {
-            var contractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).ToListAsync();
+            var user =  await GetCurrentUserAsync();
+            var contractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).Where(u => u.User.ZipCode == user.ZipCode).ToListAsync();
             var model = new FindContractorsViewModel(_context);
-            model.CurrentUser = await GetCurrentUserAsync();
+            model.CurrentUser = user;
             model.Contractors = contractors;
             return View(model);
         }
@@ -42,7 +43,8 @@ namespace DesignDirect.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var allContractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).ToListAsync();
+            var user = await GetCurrentUserAsync();
+            var allContractors = await _context.Contractor.Include(i => i.User).Include(f => f.Services).Where(u => u.User.ZipCode == user.ZipCode).ToListAsync();
             var allContractorServices = await _context.ContractorService.ToListAsync();
             var contractorServices = (from c in allContractorServices
                                       from s in serviceIds
@@ -54,7 +56,7 @@ namespace DesignDirect.Controllers
                                       select c).ToList();
             FindContractorsViewModel newModel = new FindContractorsViewModel(_context);
             newModel.Contractors = filteredContractors;
-
+            newModel.CurrentUser = user;
             return View(newModel);
         }
         // GET: Contractor/Details/5
@@ -64,15 +66,16 @@ namespace DesignDirect.Controllers
             {
                 return NotFound();
             }
+            ContractorProfile profile = new ContractorProfile(_context, id);
+            var contractor = await _context.Contractor.Include(i => i.User).Include(f => f.Services).SingleOrDefaultAsync(m => m.ContractorId == id);
 
-            var contractor = await _context.Contractor
-                .SingleOrDefaultAsync(m => m.ContractorId == id);
+            profile.Contractor = contractor;
             if (contractor == null)
             {
                 return NotFound();
             }
 
-            return View(contractor);
+            return View(profile);
         }
 
         // GET: Contractor/Create

@@ -43,7 +43,8 @@ namespace DesignDirect.Controllers
             model.MatchingContractors = (from c in allContractors
                                     from t in contractorTags
                                     where c.ContractorId == t
-                                    select c).ToList(); 
+                                    select c).ToList();
+            model.Services = await _context.Service.ToListAsync();  
             return View(model);
         }
 
@@ -167,9 +168,25 @@ namespace DesignDirect.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ideaboard = await _context.Ideaboard.SingleOrDefaultAsync(m => m.IdeaboardId == id);
+            var ideaboardImages = await _context.IdeaboardImage.Where(i => i.IdeaboardId == id).ToListAsync();
+            foreach (var i in ideaboardImages)
+            {
+                _context.IdeaboardImage.Remove(i);
+            }
             _context.Ideaboard.Remove(ideaboard);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteImage(int id, int ideaboardId)
+        {
+            var ideaboardImages = await _context.IdeaboardImage.Where(i => i.IdeaboardId == ideaboardId).ToListAsync();
+            var ideaboardImage = (from i in ideaboardImages
+                                where i.ImageId == id
+                                select i).First();
+            _context.IdeaboardImage.Remove(ideaboardImage);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id = ideaboardId });
         }
 
         private bool IdeaboardExists(int id)

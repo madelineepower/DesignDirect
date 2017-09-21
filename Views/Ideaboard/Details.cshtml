@@ -12,9 +12,28 @@
 
     @foreach (var image in @Model.Images)
     {
-        <img src="@Html.DisplayFor(modelItem => image.Source)">
+        <a data-toggle="modal" data-target="#modal-@Html.DisplayFor(modelItem => image.ImageId)"><img src="@Html.DisplayFor(modelItem => image.Source)"></a>
+
+        <div id="modal-@Html.DisplayFor(modelItem => image.ImageId)" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="@Html.DisplayFor(modelItem => image.Source)">
+                </div>
+                <div class="modal-footer">
+                    <a asp-action="DeleteImage" asp-route-id="@image.ImageId" asp-route-ideaboardId="@Model.Ideaboard.IdeaboardId" class="btn btn-danger">Delete from Ideaboard</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+            </div>
+        </div>
     }
 </div>
 <div>
     <a asp-action="Index">Back to List</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Ideaboard.IdeaboardId">Delete Ideaboard</a>
 </div>
+

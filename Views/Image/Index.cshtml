@@ -3,10 +3,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Find Inspiration Photos</h2>
+<h2 class="body-content-heading"><i class="material-icons md-36 purple">photo_camera</i>  Find Inspiration Photos</h2>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 content-box">
         <h3>Filter</h3>
         <form asp-action="Filter">
             <div class="form-group">
@@ -21,16 +21,20 @@
                                  Model.Styles, 
                                  new { @class="form-control" })
             </div>
-            <input type="submit" value="Filter" class="btn btn-default" />
+            <input type="submit" value="Filter" class="btn btn-default purpleBtn btn-lg" />
         </form>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-1 gutter"></div>
+    <div class="col-md-8 content-box large-box">
         <div class="row">
             @foreach (var item in @Model.Images) {
                 <div class="col-md-3">
-                    <a asp-action="AddToIdeaboard" asp-route-id="@item.ImageId">
-                    <img src="@Html.DisplayFor(modelItem => item.Source)" style="width:100%">
-                    </a>
+                    <div class="img-container">
+                    <img src="@Html.DisplayFor(modelItem => item.Source)" style="width:100%" class="image">
+                    <div class="middle">
+                        <a class="btn btn-default purpleBtn" asp-action="AddToIdeaboard" asp-route-id="@item.ImageId"><i class="material-icons">add_to_photos</i></a>
+                    </div>
+                    </div>
                 </div>
             }
         </div>
