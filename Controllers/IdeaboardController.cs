@@ -44,7 +44,8 @@ namespace DesignDirect.Controllers
                                     from t in contractorTags
                                     where c.ContractorId == t
                                     select c).ToList();
-            model.Services = await _context.Service.ToListAsync();  
+            model.Services = await _context.Service.ToListAsync();
+            model.CurrentUser = user;  
             return View(model);
         }
 

@@ -4,11 +4,15 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Contractor.User.FirstName) @Html.DisplayFor(model => model.Contractor.User.LastName)</h2>
 
 <div>
-    <h4>Contractor</h4>
+    <h4>Contractor Profile</h4>
     <hr />
+    <a class="showing purpleText" asp-action="Index"><i class="material-icons purple">keyboard_arrow_left</i>Back to Contractors</a>
+    <br>
+    <br>
+    <br>
     <dl class="dl-horizontal">
          <dt>
             @Html.DisplayNameFor(model => model.Contractor.User.FirstName)
@@ -63,6 +67,4 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Contractor.ContractorId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

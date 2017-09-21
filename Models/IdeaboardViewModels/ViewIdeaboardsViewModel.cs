@@ -17,5 +17,6 @@ namespace DesignDirect.Models.IdeaboardViewModels
 
        public List<Service> Services {get; set;}  
 
+       public ApplicationUser CurrentUser {get; set;}
     }
 }

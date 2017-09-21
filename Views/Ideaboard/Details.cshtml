@@ -4,16 +4,24 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Ideaboard.Title)</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Ideaboard.Title)</h4>
+    <h4>Ideaboard</h4>
     <hr />
-
+    <a class="showing purpleText" asp-action="Index"><i class="material-icons purple">keyboard_arrow_left</i>Back to Ideaboards</a>
+    <br>
+    <br>
+    <br>
+    <div class="row container">
     @foreach (var image in @Model.Images)
     {
-        <a data-toggle="modal" data-target="#modal-@Html.DisplayFor(modelItem => image.ImageId)"><img src="@Html.DisplayFor(modelItem => image.Source)"></a>
-
+        <div class="col-md-2 img-container" >
+            <img src="@Html.DisplayFor(modelItem => image.Source)" class="image">
+            <div class="middle">
+                <a class="pointer" data-toggle="modal" data-target="#modal-@Html.DisplayFor(modelItem => image.ImageId)"><i class="material-icons purple md-48">pageview</i></a>
+            </div>
+        </div>
         <div id="modal-@Html.DisplayFor(modelItem => image.ImageId)" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -23,7 +31,7 @@
                     <img src="@Html.DisplayFor(modelItem => image.Source)">
                 </div>
                 <div class="modal-footer">
-                    <a asp-action="DeleteImage" asp-route-id="@image.ImageId" asp-route-ideaboardId="@Model.Ideaboard.IdeaboardId" class="btn btn-danger">Delete from Ideaboard</a>
+                    <a asp-action="DeleteImage" asp-route-id="@image.ImageId" asp-route-ideaboardId="@Model.Ideaboard.IdeaboardId" class="btn btn-danger">Delete Image</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -31,9 +39,11 @@
             </div>
         </div>
     }
+    </div>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
+<br>
+<br>
+<div class="btnGroup center">
     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Ideaboard.IdeaboardId">Delete Ideaboard</a>
 </div>
 

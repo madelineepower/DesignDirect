@@ -10,44 +10,64 @@
 </p>
 
 <div class="row">
-    <div class="col-md-8 content-box large-box">
-        <div class="row">
-            <div class="col-md-3 ideaboard">
-                <a asp-action="Create">Create New</a>
+    <div class="col-md-7 content-box">
+        <div class="row center">
+            <div class="col-md-5 ideaboard create-new">
+                <a class="purpleText" style="font-size: 20px" asp-action="Create">
+                <i class="material-icons purple md-75" style="margin-top: 25%">add_circle_outline</i>
+                <br>New Ideaboard</a>
             </div>
             @foreach (var item in @Model.Ideaboards)
             {
-                <div class="col-md-3 ideaboard">
-                    @Html.DisplayFor(modelItem => item.Title) <br>
-                    <a asp-action="Details" asp-route-id="@item.IdeaboardId">Details</a>
+                <div class="col-md-5 ideaboard img-container">
+                    <h3 class="purpleText image" style="margin-top: 40%">@Html.DisplayFor(modelItem => item.Title)</h3> 
+                    <div class="middle">
+                        <a class="btn btn-default purpleBtn"asp-action="Details" asp-route-id="@item.IdeaboardId">View Ideaboard</a>
+                    </div>
                 </div>
             }
         </div>
     </div>
     <div class="col-md-1 gutter"></div>
-    <div class="col-md-3 content-box">
-        <h4>BRING YOUR IDEAS TO LIFE</h4>
+    <div class="col-md-4 content-box">
+        <h3 class="center">BRING YOUR IDEAS TO LIFE</h3>
+        <hr>
+        <div class="center"><h5 class="showing">Contractors in your area: <i class="material-icons purple md-18">location_on</i> @Html.DisplayFor(model => model.CurrentUser.ZipCode)</h5></div>
+        <hr>
         <div class="row">
         @foreach (var item in @Model.MatchingContractors)
         {
-            <div class="container" >
-                <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
-                    <h5>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.User.ZipCode)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.Website)</h5>
-                    <h5>@Html.DisplayFor(modelItem => item.PhoneNumber)</h5>
+             <div class="col-md-11 contractor-card ideaboard-contractor">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="profile-pic" src="~/images/blank-profile.png">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                            <p>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</p>
+                            <p>@Html.DisplayFor(modelItem => item.User.ZipCode)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-12">"This is a decscription of the business and everything that we do and blah, blah, blah."</p>
+                    </div>
                     <h4>Services</h4>
                     @foreach (var thing in item.Services)
                     {
-                        <div>@Html.DisplayFor(modelItem => thing.Service.Name)</div>
+                        <span>@Html.DisplayFor(modelItem => thing.Service.Name) |</span>
                     }
-                    <a asp-controller="Contractor" asp-action="Details" asp-route-id="@item.ContractorId">Details</a>
-            </div>
-
+                    <div class="row contact-row-contractor">
+                        <div class="col-md-6"><p class="phone-number"><i class="material-icons purple">phone</i> @Html.DisplayFor(modelItem => item.PhoneNumber)</p></div>
+                        <div class="col-md-6 right">
+                            <a class="btn btn-default blueBtn" asp-controller="Contractor" asp-action="Details" asp-route-id="@item.ContractorId"><i class="material-icons">perm_identity</i> View Profile</a>
+                        </div>
+                    </div>
+                </div>
         }
         </div>
     </div>
 
 </div>
+
 
 

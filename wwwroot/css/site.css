@@ -63,10 +63,10 @@ textarea {
 }
 
 .ideaboard {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
     margin: 2%;
-    height: 200px;
+    height: 250px;
 }
 .content-box {
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -147,6 +147,7 @@ select[multiple] {
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+.material-icons.md-75 { font-size: 75px; }
 
 .material-icons.purple { color: #a264a2; }
 
@@ -222,4 +223,34 @@ select[multiple] {
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.dropdown {
+    margin-bottom: 10px;
+}
+
+.selectBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btnGroup {
+    margin-top: 10px;
+}
+
+.purpleText {
+    color: #a264a2;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.ideaboard-contractor {
+    margin-bottom: 20px;
+}
+
+.create-new > a:hover {
+    text-decoration: none;
+    color: #55a4a5;
 }
