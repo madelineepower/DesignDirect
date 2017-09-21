@@ -28,10 +28,13 @@
     <div class="col-md-8 content-box large-box">
         <div class="row">
             @foreach (var item in @Model.Images) {
-                <div class="col-md-3">
-                    <a asp-action="AddToIdeaboard" asp-route-id="@item.ImageId">
-                    <img src="@Html.DisplayFor(modelItem => item.Source)" style="width:100%">
-                    </a>
+                <div class="col-md-4 img-div">
+                    <div class="img-container">
+                    <img src="@Html.DisplayFor(modelItem => item.Source)" class="image inspo-image">
+                    <div class="middle">
+                        <a class="btn btn-default purpleBtn" asp-action="AddToIdeaboard" asp-route-id="@item.ImageId"><i class="material-icons">add_to_photos</i></a>
+                    </div>
+                    </div>
                 </div>
             }
         </div>

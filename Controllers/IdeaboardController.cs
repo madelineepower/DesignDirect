@@ -43,7 +43,7 @@ namespace DesignDirect.Controllers
             model.MatchingContractors = (from c in allContractors
                                     from t in contractorTags
                                     where c.ContractorId == t
-                                    select c).ToList();
+                                    select c).Distinct().Take(6).ToList();
             model.Services = await _context.Service.ToListAsync();
             model.CurrentUser = user;  
             return View(model);

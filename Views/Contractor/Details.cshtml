@@ -14,23 +14,23 @@
     <br>
     <br>
     <dl class="dl-horizontal">
-         <dt>
-            @Html.DisplayNameFor(model => model.Contractor.User.FirstName)
+        <dt>
+            @Html.DisplayNameFor(model => model.Contractor.CompanyName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Contractor.User.FirstName)
+            @Html.DisplayFor(model => model.Contractor.CompanyName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Contractor.User.LastName)
+            @Html.DisplayNameFor(model => model.Contractor.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Contractor.User.LastName)
+            "@Html.DisplayFor(model => model.Contractor.Description)"
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Contractor.User.ZipCode)
+            @Html.DisplayNameFor(model => model.Contractor.Website)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Contractor.User.ZipCode)
+            @Html.DisplayFor(model => model.Contractor.Website)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Contractor.City)
@@ -45,16 +45,22 @@
             @Html.DisplayFor(model => model.Contractor.State)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Contractor.User.ZipCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Contractor.User.ZipCode)
+        </dd>
+        <dt>
+            Contact
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Contractor.User.FirstName) @Html.DisplayFor(model => model.Contractor.User.LastName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Contractor.PhoneNumber)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Contractor.PhoneNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Contractor.Website)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Contractor.Website)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Services)

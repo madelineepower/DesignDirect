@@ -10,7 +10,6 @@ namespace DesignDirect.Models
     {
         [Key]
         public int ImageId {get; set;}
-        public string Description {get; set;}
 
         [Required]
         public string Source {get; set;}

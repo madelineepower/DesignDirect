@@ -26,6 +26,12 @@ namespace DesignDirect.Models
 
         public string Website {get; set;}
 
+        [Display(Name = "Company Name")]
+        public string CompanyName {get; set;}
+
+        [StringLength(250)]
+        public string Description {get; set;}
+
         public virtual ICollection<ContractorService> Services { get; set; }
 
     }

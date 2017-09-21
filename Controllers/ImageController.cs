@@ -27,7 +27,7 @@ namespace DesignDirect.Controllers
         // GET: Image
         public async Task<IActionResult> Index()
         {
-            var allImages = await _context.Image.Include(i => i.Room).Include(i => i.Style).ToListAsync();
+            var allImages = await _context.Image.Include(i => i.Room).Include(i => i.Style).Take(33).ToListAsync();
             var model = new FilterResultsViewModel(_context);
             model.Images = allImages;
             return View(model);
