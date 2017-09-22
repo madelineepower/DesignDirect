@@ -43,13 +43,12 @@
                             <img class="profile-pic" src="~/images/blank-profile.png">
                         </div>
                         <div class="col-md-8">
-                            <h4>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</h4>
+                            <h4>@Html.DisplayFor(modelItem => item.CompanyName)</h4>
                             <p>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</p>
-                            <p>@Html.DisplayFor(modelItem => item.User.ZipCode)</p>
                         </div>
                     </div>
                     <div class="row">
-                        <p class="col-md-12">"This is a decscription of the business and everything that we do and blah, blah, blah."</p>
+                        <p class="col-md-12">@Html.DisplayFor(modelItem => item.Description)</p>
                     </div>
                     <h4>Services</h4>
                     @foreach (var thing in item.Services)

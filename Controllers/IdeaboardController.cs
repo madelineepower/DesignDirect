@@ -181,10 +181,20 @@ namespace DesignDirect.Controllers
 
         public async Task<IActionResult> DeleteImage(int id, int ideaboardId)
         {
+            var user = await GetCurrentUserAsync();
             var ideaboardImages = await _context.IdeaboardImage.Where(i => i.IdeaboardId == ideaboardId).ToListAsync();
             var ideaboardImage = (from i in ideaboardImages
                                 where i.ImageId == id
                                 select i).First();
+            var imageTags = await _context.ImageTag.Where(i => i.User.Id == user.Id).ToListAsync();
+            var imageTag = (from i in imageTags
+                            where i.ImageId == id
+                            select i).ToList();
+            foreach (var i in imageTag)
+            {
+                _context.ImageTag.Remove(i);               
+                await _context.SaveChangesAsync();
+            }
             _context.IdeaboardImage.Remove(ideaboardImage);
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", new { id = ideaboardId });
